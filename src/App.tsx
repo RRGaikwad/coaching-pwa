@@ -13,14 +13,17 @@ import Announcements from "./components/pages/Announcements";
 
 export default function App() {
   const [user, setUser] = useState<User | null>(Store.getSession());
-  const [activePage, setActivePage] = useState<Page>("dashboard");
+  const [activePage, setActivePage] = useState<Page>(Store.getPage() as Page);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    Store.setPage(activePage);
+  }, [activePage]);
 
   useEffect(() => {
     // Register a minimal SW for PWA support
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        // Use relative path for SW registration
         navigator.serviceWorker.register("sw.js").catch(() => {});
       });
     }

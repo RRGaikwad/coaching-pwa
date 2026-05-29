@@ -176,6 +176,7 @@ const LS_KEYS = {
   tests: "ec_tests",
   announcements: "ec_announcements",
   currentUser: "ec_current_user",
+  activePage: "ec_active_page",
 };
 
 function loadOrSeed<T>(key: string, seed: T[]): T[] {
@@ -248,6 +249,8 @@ export const Store = {
     if (user) localStorage.setItem(LS_KEYS.currentUser, JSON.stringify(user));
     else localStorage.removeItem(LS_KEYS.currentUser);
   },
+  getPage: (): any => localStorage.getItem(LS_KEYS.activePage) || "dashboard",
+  setPage: (page: string) => localStorage.setItem(LS_KEYS.activePage, page),
 
   // Attendance
   getAttendance: (): AttendanceRecord[] => loadOrSeed(LS_KEYS.attendance, SEED_ATTENDANCE),

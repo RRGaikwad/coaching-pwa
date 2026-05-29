@@ -1,6 +1,6 @@
 // EduCoach Service Worker v1.0
-const CACHE_NAME = "educoach-v1";
-const STATIC_ASSETS = ["./", "index.html", "manifest.json"];
+const CACHE_NAME = "educoach-v2";
+const STATIC_ASSETS = ["./", "index.html", "manifest.json", "styles.css", "main.js"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
