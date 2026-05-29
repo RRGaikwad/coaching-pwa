@@ -229,11 +229,19 @@ export default function Fees({ user }: Props) {
                 <label className="block text-xs font-medium text-gray-600 mb-1.5">Student *</label>
                 <select
                   value={newFee.studentId}
-                  onChange={(e) => setNewFee({ ...newFee, studentId: e.target.value })}
+                  onChange={(e) => {
+                    const sid = e.target.value;
+                    const student = students.find(s => s.id === sid);
+                    setNewFee({ 
+                      ...newFee, 
+                      studentId: sid,
+                      amount: student ? student.totalFees.toString() : newFee.amount 
+                    });
+                  }}
                   className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 >
                   <option value="">Select student</option>
-                  {students.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                  {students.map((s) => <option key={s.id} value={s.id}>{s.name} (Total: ₹{s.totalFees})</option>)}
                 </select>
               </div>
               <div className="grid grid-cols-2 gap-3">

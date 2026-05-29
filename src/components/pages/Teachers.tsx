@@ -3,7 +3,7 @@ import { User, Store, DisplayCategory } from "../../data/store";
 
 interface Props { user: User; }
 
-export default function Teachers({ }: Props) {
+export default function Teachers({ user: _user }: Props) {
   const [teachers, setTeachers] = useState<User[]>(Store.getUsers().filter(u => u.role === "teacher"));
   const [showAdd, setShowAdd] = useState(false);
   const [newTeacher, setNewTeacher] = useState({

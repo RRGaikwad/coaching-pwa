@@ -126,7 +126,7 @@ export default function Performance({ user }: Props) {
               onChange={(e) => setSelectedStudentId(e.target.value)}
               className="px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
             >
-              {students.map((s) => <option key={s.id} value={s.id}>{s.name} ({s.subject})</option>)}
+              {students.map((s) => <option key={s.id} value={s.id}>{s.name} ({s.group})</option>)}
             </select>
           </div>
           <button onClick={openAdd} className="bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-indigo-700 transition shadow">

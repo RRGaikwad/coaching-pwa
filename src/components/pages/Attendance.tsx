@@ -28,7 +28,7 @@ export default function Attendance({ user }: Props) {
 
   // Mark attendance
   const markAttendance = (sid: string, status: "present" | "absent" | "late") => {
-    const subject = user.role === "teacher" ? user.subject : (students.find((s) => s.id === sid)?.subject || "General");
+    const subject = user.role === "teacher" ? user.subject : (students.find((s) => s.id === sid)?.group || "General");
     const record: AttendanceRecord = {
       id: `a_${sid}_${selectedDate}_${subject}`,
       studentId: sid,
@@ -168,7 +168,7 @@ export default function Attendance({ user }: Props) {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-gray-800">{s.name}</p>
-                    <p className="text-xs text-gray-400">{s.displayCategory} • {user.role === "teacher" ? user.subject : s.subject}</p>
+                    <p className="text-xs text-gray-400">{s.displayCategory} • {user.role === "teacher" ? user.subject : s.group}</p>
                   </div>
                   <div className="flex gap-1.5">
                     {(["present", "absent", "late"] as const).map((st) => (

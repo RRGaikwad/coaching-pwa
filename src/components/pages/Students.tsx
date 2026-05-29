@@ -1,9 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Store, Student, User, DisplayCategory } from "../../data/store";
 
 interface Props { user: User; }
 
-const SUBJECTS = ["Mathematics", "Physics", "Chemistry", "Biology", "English", "Computer Science"];
 const DISPLAYS: DisplayCategory[] = ["11th", "12th", "Gap"];
 
 const emptyForm = () => ({
@@ -12,7 +11,8 @@ const emptyForm = () => ({
   password: "student123",
   phone: "",
   displayCategory: DISPLAYS[0],
-  subject: SUBJECTS[0],
+  group: "PCM",
+  totalFees: 0,
   parentName: "",
   parentPhone: "",
   enrolledDate: new Date().toISOString().split("T")[0],
@@ -29,6 +29,22 @@ export default function Students({ user }: Props) {
   const [toast, setToast] = useState("");
 
   if (user.role !== "admin") return null;
+
+  // Dynamic group options based on category
+  const getGroupOptions = (category: DisplayCategory) => {
+    if (category === "Gap") {
+      return ["Physics", "Chemistry", "Math", "Bio", "PCM", "PCB"];
+    }
+    return ["PCM", "PCB"];
+  };
+
+  // Ensure group is valid when category changes
+  useEffect(() => {
+    const options = getGroupOptions(form.displayCategory);
+    if (!options.includes(form.group)) {
+      setForm(prev => ({ ...prev, group: options[0] }));
+    }
+  }, [form.displayCategory]);
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -61,7 +77,8 @@ export default function Students({ user }: Props) {
       password: existingUser?.password || "student123",
       phone: s.phone,
       displayCategory: s.displayCategory,
-      subject: s.subject,
+      group: s.group,
+      totalFees: s.totalFees,
       parentName: s.parentName,
       parentPhone: s.parentPhone,
       enrolledDate: s.enrolledDate,
@@ -79,7 +96,8 @@ export default function Students({ user }: Props) {
       email: form.email,
       phone: form.phone,
       displayCategory: form.displayCategory,
-      subject: form.subject,
+      group: form.group,
+      totalFees: Number(form.totalFees),
       parentName: form.parentName,
       parentPhone: form.parentPhone,
       enrolledDate: form.enrolledDate,
@@ -221,7 +239,7 @@ export default function Students({ user }: Props) {
                       {s.displayCategory}
                     </span>
                     <span className="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full">
-                      {s.subject}
+                      {s.group}
                     </span>
                   </div>
                 </div>
@@ -231,7 +249,7 @@ export default function Students({ user }: Props) {
                   <span className="font-medium text-gray-700">📞</span> {s.phone}
                 </div>
                 <div>
-                  <span className="font-medium text-gray-700">👤</span> {s.parentName}
+                  <span className="font-medium text-gray-700">💰</span> ₹{s.totalFees.toLocaleString()}
                 </div>
               </div>
             </div>
@@ -282,7 +300,7 @@ export default function Students({ user }: Props) {
                       {viewStudent.displayCategory}
                     </span>
                     <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
-                      {viewStudent.subject}
+                      {viewStudent.group}
                     </span>
                   </div>
                 </div>
@@ -290,6 +308,7 @@ export default function Students({ user }: Props) {
               <div className="space-y-3 text-sm">
                 {[
                   ["📞 Phone", viewStudent.phone],
+                  ["💰 Total Fees", `₹${viewStudent.totalFees.toLocaleString()}`],
                   [
                     "📅 Enrolled",
                     new Date(viewStudent.enrolledDate).toLocaleDateString("en-IN", {
@@ -400,17 +419,29 @@ export default function Students({ user }: Props) {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-gray-600 mb-1.5">Subject</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-1.5">Group</label>
                   <select
-                    value={form.subject}
-                    onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                    value={form.group}
+                    onChange={(e) => setForm({ ...form, group: e.target.value })}
                     className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
                   >
-                    {SUBJECTS.map((s) => (
-                      <option key={s}>{s}</option>
+                    {getGroupOptions(form.displayCategory).map((g) => (
+                      <option key={g} value={g}>{g}</option>
                     ))}
                   </select>
                 </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-600 mb-1.5">Total Fees (₹) *</label>
+                  <input
+                    type="number"
+                    value={form.totalFees}
+                    onChange={(e) => setForm({ ...form, totalFees: Number(e.target.value) })}
+                    placeholder="0"
+                    className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-medium text-gray-600 mb-1.5">Enrolled Date</label>
                   <input

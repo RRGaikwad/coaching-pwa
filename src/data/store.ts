@@ -21,7 +21,8 @@ export interface Student {
   email: string;
   phone: string;
   displayCategory: DisplayCategory;
-  subject: string;
+  group: string;
+  totalFees: number;
   parentName: string;
   parentPhone: string;
   enrolledDate: string;
@@ -70,12 +71,12 @@ export interface Announcement {
 // ─── Seed Data ────────────────────────────────────────────────────────────────
 
 export const SEED_STUDENTS: Student[] = [
-  { id: "s1", name: "Aarav Sharma", email: "aarav@student.com", phone: "9876543210", displayCategory: "11th", subject: "Mathematics", parentName: "Rajesh Sharma", parentPhone: "9876543200", enrolledDate: "2025-01-10" },
-  { id: "s2", name: "Priya Patel", email: "priya@student.com", phone: "9876543211", displayCategory: "12th", subject: "Physics", parentName: "Suresh Patel", parentPhone: "9876543201", enrolledDate: "2025-01-12" },
-  { id: "s3", name: "Rohan Mehta", email: "rohan@student.com", phone: "9876543212", displayCategory: "Gap", subject: "Chemistry", parentName: "Anita Mehta", parentPhone: "9876543202", enrolledDate: "2025-01-15" },
-  { id: "s4", name: "Sneha Gupta", email: "sneha@student.com", phone: "9876543213", displayCategory: "11th", subject: "Mathematics", parentName: "Vikas Gupta", parentPhone: "9876543203", enrolledDate: "2025-02-01" },
-  { id: "s5", name: "Arjun Singh", email: "arjun@student.com", phone: "9876543214", displayCategory: "12th", subject: "Biology", parentName: "Harpreet Singh", parentPhone: "9876543204", enrolledDate: "2025-02-05" },
-  { id: "s6", name: "Kavya Nair", email: "kavya@student.com", phone: "9876543215", displayCategory: "Gap", subject: "Physics", parentName: "Lakshmi Nair", parentPhone: "9876543205", enrolledDate: "2025-02-10" },
+  { id: "s1", name: "Aarav Sharma", email: "aarav@student.com", phone: "9876543210", displayCategory: "11th", group: "PCM", totalFees: 25000, parentName: "Rajesh Sharma", parentPhone: "9876543200", enrolledDate: "2025-01-10" },
+  { id: "s2", name: "Priya Patel", email: "priya@student.com", phone: "9876543211", displayCategory: "12th", group: "PCB", totalFees: 30000, parentName: "Suresh Patel", parentPhone: "9876543201", enrolledDate: "2025-01-12" },
+  { id: "s3", name: "Rohan Mehta", email: "rohan@student.com", phone: "9876543212", displayCategory: "Gap", group: "Math", totalFees: 28000, parentName: "Anita Mehta", parentPhone: "9876543202", enrolledDate: "2025-01-15" },
+  { id: "s4", name: "Sneha Gupta", email: "sneha@student.com", phone: "9876543213", displayCategory: "11th", group: "PCM", totalFees: 25000, parentName: "Vikas Gupta", parentPhone: "9876543203", enrolledDate: "2025-02-01" },
+  { id: "s5", name: "Arjun Singh", email: "arjun@student.com", phone: "9876543214", displayCategory: "12th", group: "PCB", totalFees: 22000, parentName: "Harpreet Singh", parentPhone: "9876543204", enrolledDate: "2025-02-05" },
+  { id: "s6", name: "Kavya Nair", email: "kavya@student.com", phone: "9876543215", displayCategory: "Gap", group: "Physics", totalFees: 30000, parentName: "Lakshmi Nair", parentPhone: "9876543205", enrolledDate: "2025-02-10" },
 ];
 
 export const SEED_USERS: User[] = [
@@ -231,9 +232,9 @@ export const Store = {
   },
 
   // Helpers
-  getSubjects: (): string[] => {
+  getGroups: (): string[] => {
     const students = Store.getStudents();
-    return Array.from(new Set(students.map((s) => s.subject))).sort();
+    return Array.from(new Set(students.map((s) => s.group))).sort();
   },
 
   // Session
