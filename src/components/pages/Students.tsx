@@ -236,20 +236,20 @@ export default function Students({ user }: Props) {
                   <p className="text-xs text-gray-500 truncate">{s.email}</p>
                   <div className="flex gap-2 mt-2">
                     <span className="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full">
-                      {s.displayCategory}
+                      {s.displayCategory || "11th"}
                     </span>
                     <span className="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full">
-                      {s.group}
+                      {s.group || "PCM"}
                     </span>
                   </div>
                 </div>
               </div>
               <div className="mt-4 pt-4 border-t border-gray-50 grid grid-cols-2 gap-2 text-xs text-gray-500">
                 <div>
-                  <span className="font-medium text-gray-700">📞</span> {s.phone}
+                  <span className="font-medium text-gray-700">📞</span> {s.phone || "N/A"}
                 </div>
                 <div>
-                  <span className="font-medium text-gray-700">💰</span> ₹{s.totalFees.toLocaleString()}
+                  <span className="font-medium text-gray-700">💰</span> ₹{(s.totalFees || 0).toLocaleString()}
                 </div>
               </div>
             </div>
@@ -297,21 +297,21 @@ export default function Students({ user }: Props) {
                   <p className="text-sm text-gray-500">{viewStudent.email}</p>
                   <div className="flex gap-2 mt-1">
                     <span className="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">
-                      {viewStudent.displayCategory}
+                      {viewStudent.displayCategory || "11th"}
                     </span>
                     <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
-                      {viewStudent.group}
+                      {viewStudent.group || "PCM"}
                     </span>
                   </div>
                 </div>
               </div>
               <div className="space-y-3 text-sm">
                 {[
-                  ["📞 Phone", viewStudent.phone],
-                  ["💰 Total Fees", `₹${viewStudent.totalFees.toLocaleString()}`],
+                  ["📞 Phone", viewStudent.phone || "N/A"],
+                  ["💰 Total Fees", `₹${(viewStudent.totalFees || 0).toLocaleString()}`],
                   [
                     "📅 Enrolled",
-                    new Date(viewStudent.enrolledDate).toLocaleDateString("en-IN", {
+                    new Date(viewStudent.enrolledDate || Date.now()).toLocaleDateString("en-IN", {
                       day: "numeric",
                       month: "long",
                       year: "numeric",
