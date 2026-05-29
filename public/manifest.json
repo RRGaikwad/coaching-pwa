@@ -1,37 +1,17 @@
 {
-  "name": "EduCoach — Coaching Class Management",
   "short_name": "EduCoach",
-  "description": "A smart PWA for coaching institutes to manage attendance, fees, performance and communication.",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#4f46e5",
-  "orientation": "portrait-primary",
+  "name": "EduCoach — Coaching Class Management",
   "icons": [
     {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
+      "src": "icon-192.png",
       "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "sizes": "192x192"
     }
   ],
-  "categories": ["education", "productivity"],
-  "shortcuts": [
-    {
-      "name": "Attendance",
-      "url": "/?page=attendance",
-      "description": "View and mark attendance"
-    },
-    {
-      "name": "Fees",
-      "url": "/?page=fees",
-      "description": "Manage fee records"
-    }
-  ]
+  "start_url": "./index.html",
+  "background_color": "#4f46e5",
+  "display": "standalone",
+  "scope": "./",
+  "theme_color": "#4f46e5",
+  "description": "A smart PWA for coaching institutes to manage attendance, fees, performance, and communication."
 }

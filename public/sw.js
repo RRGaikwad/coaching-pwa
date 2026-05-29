@@ -1,6 +1,6 @@
 // EduCoach Service Worker v1.0
 const CACHE_NAME = "educoach-v1";
-const STATIC_ASSETS = ["./", "./index.html"];
+const STATIC_ASSETS = ["./", "index.html", "manifest.json"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -31,7 +31,7 @@ self.addEventListener("fetch", (event) => {
           }
           return response;
         })
-        .catch(() => caches.match("./index.html"));
+        .catch(() => caches.match("index.html"));
     })
   );
 });

@@ -20,8 +20,8 @@ export default function App() {
     // Register a minimal SW for PWA support
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        const swUrl = `${import.meta.env.BASE_URL}sw.js`.replace(/\/+/g, "/");
-        navigator.serviceWorker.register(swUrl).catch(() => {});
+        // Use relative path for SW registration
+        navigator.serviceWorker.register("sw.js").catch(() => {});
       });
     }
   }, []);
